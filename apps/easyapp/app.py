@@ -2,6 +2,8 @@ from flask import Flask, render_template, url_for, redirect, request
 
 app = Flask(__name__)
 
+app.config["SECRET_KET"] = b'6[]r\xaa\x90\xc39>\x88c\xf2Q\x97\xdd\xfa'
+
 @app.route("/")
 def index():
     return 'Hello, 성공!!!'
