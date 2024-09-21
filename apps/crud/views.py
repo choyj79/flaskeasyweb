@@ -13,7 +13,6 @@ crud = Blueprint(
 
 @crud.route("/")
 def index():
-    print("!!!!!!!!!!!")
     return render_template("crud/index.html")
 
 @crud.route("/sql")
@@ -71,3 +70,10 @@ def edit_user(user_id):
         db.session.commit()
         return redirect(url_for('crud.users'))
     return render_template('crud/edit.html',user=user, form=form)
+
+@crud.route('/user/<user_id>/delete',methods=["POST"])
+def delete_user(user_id):
+    user = User.query.filter_by(id=user_id).first()
+    db.session.delete(user)
+    db.session.commit()
+    return redirect(url_for('crud.users'))
