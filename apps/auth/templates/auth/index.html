@@ -1,21 +1,32 @@
-{% extends "auth/base.html" %}
-{% block title %}사용자 일람{% endblock %}
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />        
+        <title>auth</title>
+        <link rel = "stylesheet" href="{{url_for('auth.static',filename='sytle.css')}}"/>
+    </head>
 
-{% block content %}
-<h2>사용자 일람</h2>
-<a href="{{ url_for('auth.create_user')}}">사용자 신규 작성</a>
-<table>
-    <tr>
-        <th>사용자 ID</th>
-        <th>사용자 명</th>
-        <th>메일주소</th>
-    </tr>
-    {% for i in users %}
-        <tr>
-            <td><a href="{{url_for('auth.edit_user',user_id=i.id)}}">{{ i.id }}</a></td>
-            <td>{{ i.username }}</td>
-            <td>{{ i.email }}</td>
-        </tr>
-    {% endfor %}
-</table>
-{% endblock %}
+    <body>
+        <h2>사용자의 일람</h2>
+        
+        <table>
+            <thead>
+            <tr>
+                <th>사용자 ID</th>
+                <th>사용자명</th>
+                <th>메일주소</th>        
+            </tr>
+            </thead>
+            <tbody>
+                {% for i in users %} 
+                <tr>
+                    <td><a href="{{url_for('auth.edit_user',user_id=i.id)}}">{{ i.id }}</a></td>
+                    <td>{{ i.username }}</td>
+                    <td>{{ i.email }}</td>                
+                </tr>
+                {% endfor %}            
+            </tbody>
+        </table> 
+        <label for="terms"><a href="{{ url_for('auth.create_user')}}">사용자 신규 작성</a></label>
+    </body>
+</html>

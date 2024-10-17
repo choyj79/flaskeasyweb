@@ -2,6 +2,7 @@ from flask import Flask, Blueprint, render_template, redirect, url_for
 from apps.app import db
 from apps.crud.models import User_auth
 from apps.crud.forms import UserForm
+import subprocess
 
 #blueprint로 crud 앱을 생성
 auth = Blueprint(
@@ -41,3 +42,10 @@ def create_user():
 def users():
     users = User_auth.query.all()
     return render_template('auth/index.html', users = users)
+
+@auth.route('/game')
+def run_game():
+    # 여기에 .exe 파일 실행
+    exe_path = r'C:\\Users\\User\\Documents\\shooting_game.exe'  # 실행할 exe 파일의 경로
+    subprocess.Popen(exe_path)  # exe 파일을 실행
+    return "게임 실행 중!"
