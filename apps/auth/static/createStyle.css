@@ -18,7 +18,7 @@ body {
     border-radius: 8px;
     box-shadow: 0 0 20px gainsboro;
     gap: 10px;
-    /* ������ ������ ������ ������ */
+    /* 요소 간의 간격 조정*/
 }
 
 #sign-up-container,
