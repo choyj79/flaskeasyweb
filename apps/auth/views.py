@@ -1,5 +1,5 @@
 from flask import Flask, Blueprint, render_template, redirect, url_for
-from apps.app import db
+from app import db
 from apps.crud.models import User_auth
 from apps.crud.forms import UserForm
 import subprocess

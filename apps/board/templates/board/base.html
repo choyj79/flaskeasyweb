@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <!--title은 상속처에서 가져옴-->
+        <title>{% block title %}{% endblock %}</title>
+        <link rel="stylesheet" href="{{url_for('board.static', filename='style.css')}}"/>
+    </head>
+    <body>
+        {% block content %}{% endblock %}
+    </body>
+</html>

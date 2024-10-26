@@ -1,0 +1,22 @@
+{% extends "crud/base.html" %}
+{% block title %}게시판{% endblock %}
+
+{% block content %}
+<h2>게시판</h2>
+<table>
+    <tr>
+        <th>순번</th>
+        <th>제목</th>
+        <th>작성자명</th>
+        <th>등록일</th>
+    </tr>
+    {% for i in board %}
+        <tr>
+            <td>{{ i.id }}</a></td>
+            <td><a href="{{url_for('crud.edit_user',user_id=i.id)}}"></a>{{ i.title }}</td>
+            <td>{{ i.user_name }}</td>
+            <td>{{ i.created_at }}</td>
+        </tr>
+    {% endfor %}
+</table>
+{% endblock %}
