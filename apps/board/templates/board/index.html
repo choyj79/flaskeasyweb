@@ -13,10 +13,11 @@
     {% for i in board %}
         <tr>
             <td>{{ i.id }}</a></td>
-            <td><a href="{{url_for('crud.edit_user',user_id=i.id)}}"></a>{{ i.title }}</td>
+            <td>{{ i.title }}</td>
             <td>{{ i.user_name }}</td>
             <td>{{ i.created_at }}</td>
         </tr>
     {% endfor %}
 </table>
+<label for="terms"><a href="{{ url_for('board.create_board',user_id=board.user_name)}}">글쓰기</a></label>
 {% endblock %}

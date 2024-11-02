@@ -2,20 +2,23 @@
 {% block title %}사용자 일람{% endblock %}
 
 {% block content %}
-<h2>사용자 일람</h2>
-<a href="{{ url_for('crud.create_user')}}">사용자 신규 작성</a>
-<table>
-    <tr>
-        <th>사용자 ID</th>
-        <th>사용자 명</th>
-        <th>메일주소</th>
-    </tr>
-    {% for i in users %}
+<link rel="stylesheet" href="{{url_for('crud.static', filename='style.css')}}"/>
+<div class="crud">
+    <h2>사용자 일람</h2>
+    <a href="{{ url_for('crud.create_user')}}">사용자 신규 작성</a>
+    <table>
         <tr>
-            <td><a href="{{url_for('crud.edit_user',user_id=i.id)}}">{{ i.id }}</a></td>
-            <td>{{ i.username }}</td>
-            <td>{{ i.email }}</td>
+            <th>사용자 ID</th>
+            <th>사용자 명</th>
+            <th>메일주소</th>
         </tr>
-    {% endfor %}
-</table>
+        {% for i in users %}
+            <tr>
+                <td><a href="{{url_for('crud.edit_user',user_id=i.id)}}">{{ i.id }}</a></td>
+                <td>{{ i.username }}</td>
+                <td>{{ i.email }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>
 {% endblock %}
