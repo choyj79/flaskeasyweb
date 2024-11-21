@@ -1,0 +1,36 @@
+{% extends "main/base.html" %}
+{% block title %}게시판{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{{url_for('board.static', filename='style.css')}}"/>
+<div class="board">
+    <h2>게시글 목록</h2>    
+    <table>
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>제목</th>
+                <th>작성자</th>
+                <th>조회수</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in posts %}
+                <tr>
+                    <td>{{ i.id }}</td>
+                    <td>{{ i.title }}</td>
+                    <td>{{ i.author.username }}</td>
+                    <td>{{ i.view }}</td>
+                </tr>
+            {% else %}
+            <tr>
+                <td colspan="4">게시글이 없습니다.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div style="text-align: right; margin-bottom: 10px;">
+        <a href="{{url_for('board.write')}}">글쓰기</a>
+    </div>
+</div>
+{% endblock %}

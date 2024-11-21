@@ -1,8 +1,8 @@
 from flask import Flask, Blueprint, render_template, redirect, url_for,flash, request
 from app import db
-from apps.board.models import Board
+from apps.board.models import Boards
 from apps.board.forms import BoardForm
-from flask_login import login_user, logout_user
+from flask_login import login_user, logout_user, current_user, login_required
 
 #blueprint로 crud 앱을 생성
 board = Blueprint(
@@ -14,39 +14,31 @@ board = Blueprint(
 
 @board.route("/")
 def index():
-    board = Board.query.all()
+    board = Boards.query.all()
     return render_template("board/index.html", board = board)
 
-@board.route("/board/new", methods=["GET", "POST"])
-def create_user(user_id):
-    # UserForm을 인스턴스화한다
+#게시글목록리스트
+@board.route('/boards')
+def boards():
+    posts = Boards.query.order_by(Boards.created_at.desc()).all()
+    return render_template('board/view.html', posts = posts)
+
+#게시판 글쓰기
+@board.route('/boards/write', methods=['GET','POST'])
+@login_required
+def write():
     form = BoardForm()
 
-    # 폼의 값을 벨리데이트한다
     if form.validate_on_submit():
-        # 사용자를 작성한다
-        board = Board(
-            title=form.title.data,
-            content=form.content.data,
+        new_post = Boards(
+            title = form.title.data,
+            content = form.content.data,
+            author_id = current_user.id
         )
 
-        # 사용자를 추가하고 커밋한다
-        db.session.add(board)
+        db.session.add(new_post)
         db.session.commit()
 
-        # 사용자의 일람 화면으로 리다이렉트한다
-        return redirect(url_for("auth.users"))
-    return render_template("auth/create.html", form=form)
-
-# @board.route("/board")
-# def edit_user(user_id):
-#     form = UserForm()
-#     user = User.query.filter_by(id=user_id).first()
-#     if form.validate_on_submit():
-#         user.username = form.username.data
-#         user.email = form.email.data
-#         user.password = form.password.data
-#         db.session.add(user)
-#         db.session.commit()
-#         return redirect(url_for('crud.users'))
-#     return render_template('crud/edit.html',user=user, form=form)
+        flash('글이 성공적으로 작성되었습니다.','success')
+        return redirect(url_for('board/boards'))
+    return render_template('board/write.html', form=form)

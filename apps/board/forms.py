@@ -1,8 +1,8 @@
 from flask_wtf import FlaskForm
-from wtforms import PasswordField, StringField, SubmitField
-from wtforms.validators import DataRequired, Email, length
+from wtforms import StringField, SubmitField
+from wtforms.validators import DataRequired, length
 
-#사용자 신구 장성, 편집 폼 클래스
+#게시판 작성 
 class BoardForm(FlaskForm):
     title = StringField(
         "제목",
@@ -21,4 +21,4 @@ class BoardForm(FlaskForm):
     )
     
 
-    submit = SubmitField('신규등록')
+    submit = SubmitField('등록')
