@@ -40,5 +40,10 @@ def write():
         db.session.commit()
 
         flash('글이 성공적으로 작성되었습니다.','success')
-        return redirect(url_for('board/boards'))
+        return redirect(url_for('board.boards'))
     return render_template('board/write.html', form=form)
+
+@board.route('/boards/<int:post_id>',methods=["GET","POST"])
+def view(post_id):
+    post = Boards.query.get_or_404(post_id) #게시글의 작성 번호로 조회
+    return render_template('board/view_id.html',post=post)
