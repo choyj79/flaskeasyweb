@@ -47,3 +47,15 @@ def write():
 def view(post_id):
     post = Boards.query.get_or_404(post_id) #게시글의 작성 번호로 조회
     return render_template('board/view_id.html',post=post)
+
+@board.route('/board/<int:post_id>/edit',methods=["GET","POST"])
+def edit_post(post_id):
+    post = Boards.query.get_or_404(post_id)
+    form = BoardForm(obj=post)
+    if form.validate_on_submit():
+        post.title = form.title.data
+        post.content = form.content.data
+        db.session.commit()
+        flash('게시글이 수정되었습니다.','success')
+        return redirect(url_for('board.view',post_id=post.id))
+    return render_template('board/edit.html',form=form, post=post)
